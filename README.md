@@ -1,20 +1,50 @@
-# Team5_Breast_Cancer_Wisconsin
-Team 5's project exploring the Breast Cancer Wisconsin dataset to analyze and model patterns in cancer diagnosis. This repository contains data preprocessing, analysis, and machine learning models for classifying and predicting breast cancer outcomes.
+# Breast Cancer Wisconsin Dataset Analysis
 
+This project involves an in-depth analysis of the Breast Cancer Wisconsin dataset to improve diagnostic testing for breast cancer. 
+* Our work includes extensive data preprocessing, exploratory analysis, and the implementation of machine learning models, such as K-Nearest Neighbors (KNN), to classify cancer diagnoses as benign or malignant. 
+* We conducted feature selection and optimization to identify the most important diagnostic features, streamlining the predictive model while maintaining high accuracy. 
+* This comprehensive approach demonstrates the potential of data-driven methods to refine and enhance cancer diagnostics.
+
+***
 ## Content
-* [Problem Definition](#problem-definition)
-* [Approach to Solve the Problem](#approach-to-solve-the-problem)
-* [Results](#results)
-* [Team](#team)
-* [Project Folder Structure](#project-folder-structure)
+1. [Dataset Description](#dataset-description)
+2. [Objective](#objective)
+3. [Analytical Approach](#analytical-approach)
+3. [Results](#results)
+    3.1 [Exploratory data analysis](#exploratory-data-analysis)
+    3.2 [Data preprocessing](#data-preprocessing)
+4. [Team members](#team-members)
+5. [Project Folder Structure](#project-folder-structure)
 
-## Problem Definition
+## Dataset Description
 
-We defined our problem as follows:
-Cost Optimization in Diagnostic Testing:  Assess whether all diagnostic features are needed to achieve high accuracy in breast cancer diagnosis. If a smaller subset of features provides similar accuracy, testing costs could be reduced by focusing on the most relevant ones.
+The Breast Cancer Wisconsin (Diagnostic) Dataset is derived from digitized images of fine-needle aspirate (FNA) tests performed on breast masses. These images capture microscopic views of cell nuclei, providing quantitative measurements of various characteristics that help distinguish between benign (non-cancerous) and malignant (cancerous) cases.
+
+**Cell nuclei of benign (left) and malignant (right) breast tissue**
+
+![Cell nuclei of breast tissue, benign vs. malignant](reports/images/cell_histology.png)
+
+Image source: [Sizilio et al. 2012](https://www.researchgate.net/publication/232811011_Fuzzy_method_for_pre-diagnosis_of_breast_cancer_from_the_Fine_Needle_Aspirate_analysis)
 
 
-## Approach to Solve the Problem
+* **Dataset Size:** 569 samples.
+* **Features:** 30 numerical features extracted from digitized images such as radius, perimeter, and area.
+* **Target Variable:** Diagnosis labes
+    * M (Malignant): Cancerous samples.
+    * B (Benign): Non-cancerous samples.
+* **Source:** [UC Irvine Machine Learning Repository](https://archive.ics.uci.edu/dataset/17/breast+cancer+wisconsin+diagnostic)
+    
+
+## Objectives
+
+The goal of this project is to:
+
+* Build a machine learning model to classify cancer diagnoses.
+* Identify critical diagnostic features to potentially reduce costs while preserving accuracy.
+* Evaluate model performance through metrics such as accuracy, precision, recall, and F1-score.
+
+
+## Analytical Approach
 
 We think that our problem is a classification problem. We are using KNN method to propose a solution.
 More specifically we suggest the following steps:
@@ -31,6 +61,35 @@ More specifically we suggest the following steps:
 
 ## Results
 
+#### Exploratory data analysis
+
+1. **Distribution of Cancer Diagnosis**
+
+This bar plot shows the distribution of the target variable, Diagnosis, across the dataset. Approximately 37% of the samples are labeled as malignant (M), while 63% are benign (B). This imbalance highlights the importance of building a robust classification model that performs well across both classes, especially for detecting malignant cases where early diagnosis is critical.
+
+![Count distribution of diagnosis classes](reports/images/diagnosis_count.png)
+
+2. **Feature Correlation Heatmap**
+
+The heatmap visualizes the correlation between features in the dataset. Several features, such as radius1, perimeter1, and area1, exhibit strong positive correlations with each other. These relationships suggest that some features may provide redundant information. This insight is important for feature selection, as removing highly correlated features could simplify the model without compromising accuracy. Additionally, weaker correlations with symmetry1 and fractal_dimension1 suggest these features might be less influential in classification.
+
+![Feature correlation heatmap](reports/images/feature_correlation_heatmap.png)
+
+3. **Distribution of Features by Diagnosis**
+
+This faceted plot shows the distribution of the first 10 features by diagnosis (M or B). Malignant cases (M) tend to have higher values for features such as radius1, area1, and concavity1. Benign cases (B) show a tighter spread and lower average values for these features. These trends indicate that these features are highly discriminative and can aid in distinguishing between benign and malignant diagnoses.
+
+![Distribution of the first 10 features by diagnosis class](reports/images/feature_distribution.png)
+
+4. **Scatter Plot of Radius vs. Area**
+
+The scatter plot illustrates the relationship between radius1 and area1, color-coded by diagnosis. A strong positive correlation exists between these two features. Additionally, malignant samples (M) occupy a distinct range with higher values compared to benign samples (B). This separation emphasizes the importance of these features in the classification task and aligns with our objective to identify critical diagnostic features.
+
+![Radius vs. Area scatter plot](reports/images/radius_area_scatter.png)
+
+#### Data preprocessing
+
+#### GBM/KNN model development and optimization
 Based on the results from applying KNN, adding any features beyond the first nine does not improve any of the provided metrics, including the accuracy score. Please find below these features:
  - area_worst
  - compactness_se
@@ -42,34 +101,16 @@ Based on the results from applying KNN, adding any features beyond the first nin
  - smoothness_worst
  - area_mean.
 
-## Team
-**Questions can be submitted to the following people:**
-* **Alex**. Emails can be sent to Afeht8642@gmail.com
-* **Beth**. Emails can be sent to cwlh07@gmail.com
-* **Himeshi**. Emails can be sent to himeshis575@gmail.com
-* **Ivan**. Emails can be sent to ivan.makushenko@gmail.com
+### Discussion
 
-## Project Folder Structure
+### Team members
 
-Each team is responsible for creating their own Git repository for the Team Project. The following is a good starting point for the folder structure, however the structure is ultimately up to each team. You should structure your project in a way that makes sense for your business case, ensure it is clean, and remove any unused folders.
+| Name       | GitHub Account                        | Email                           | Roles/Responsibilities                     | Link to Video                    |
+|------------|---------------------------------------|---------------------------------|--------------------------------------------|----------------------------------|
+| **Alex Feht**   | [@ALEX8642](https://github.com/ALEX8642) | [Afeht8642@gmail.com](mailto:Afeht8642@gmail.com) | Data cleanup, GBM model development and optimization   | [Demo Video](https://example.com/video1) |
+| **Beth Bai**   | [@cwlh07](https://github.com/cwlh07) | [cwlh07@gmail.com](mailto:cwlh07@gmail.com)       | Exploratory data analysis, Visualization, GBM model optimization. | [Demo Video](https://example.com/video2) |
+| **Himeshi Sam**| [@HimeshiS](https://github.com/HimeshiS)         | [himeshis575@gmail.com](mailto:himeshis575@gmail.com) | Exploratory data analysis, Preliminary KNN model, Documentation   | [Demo Video](https://example.com/video3) |
+| **Ivan Makushenko**   | [@malkus1306](https://github.com/malkus1306) | [ivan.makushenko@gmail.com](mailto:ivan.makushenko@gmail.com) | Feature selection, KNN model optimization, Documentation | [Demo Video](https://example.com/video4) |
 
-```markdown
-|-- data
-|---- processed
-|---- raw
-|---- sql
-|-- experiments
-|-- models
-|-- reports
-|-- src
-|-- README.md
-|-- .gitignore
-```
 
-* **Data:** Contains the raw, processed and final data. For any data living in a database, make sure to export the tables out into the `sql` folder, so it can be used by anyone else.
-* **Experiments:** A folder for experiments
-* **Models:** A folder containing trained models or model predictions
-* **Reports:** Generated HTML, PDF etc. of your report
-* **src:** Project source code
-* README: This file!
-* .gitignore: Files to exclude from this folder, specified by the Technical Facilitator
+
