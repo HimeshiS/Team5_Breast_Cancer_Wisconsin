@@ -46,18 +46,25 @@ The goal of this project is to:
 
 ## Analytical Approach
 
-We think that our problem is a classification problem. We are using KNN method to propose a solution.
-More specifically we suggest the following steps:
+1. **Exploratory Data Analysis:**
+    * Examined feature distributions and their relationships with the target variable.
+    * Identified key patterns and correlations to guide feature selection.
 
- - Standardize the dataset for the features.
- - Split the dataset into training and test sets with a 75-25 split.
- - Calculate the Chi-square score for each feature to understand its statistical significance relative to the target variable (Diagnosis).
- - Apply Forward Feature Selection to determine the most important features.
- - The general idea is to iteratively add features based on the performance of the KNN method, optimizing for accuracy.
- - Step 1: Run KNN independently for each feature to determine which single feature yields the highest accuracy score. This feature will be selected as feature1.
- - Step 2: Run KNN independently for feature1 combined with each other feature to determine which combination yields the highest accuracy score. The next feature selected in this step will be feature2.
- - Continue iteratively adding features in this way, up to a maximum of 15 features, aiming to reduce the initial 30 features by at least half to meet our business requirements.
- - Based on the results of these iterations, we will identify any features where adding them does not improve the performance metrics, including accuracy.
+2. **Data Preprocessing:**
+    * Standardized features to ensure consistent scaling.
+    * Addressed class imbalance using SMOTE to improve model performance on minority classes.
+    * Split the dataset into training and test sets (75-25 split) with stratification to preserve class proportions.
+
+3. **Model Development:**
+
+    * KNN Exploration: Initial experiments with K-Nearest Neighbors (KNN) involved feature selection and iterative testing to optimize accuracy. However, the model struggled with performance and handling imbalanced data.
+    * GBM Implementation: Transitioned to a Gradient Boosting Machine (LightGBM) model, which outperformed KNN in both accuracy and robustness. GridSearchCV was used for hyperparameter tuning, and the final model achieved:
+        * Accuracy: 97%
+        * ROC-AUC Score: 0.996
+
+4. **Feature Selection:**
+
+    * Feature importance analysis from the GBM model identified perimeter_worst, area_worst, and concave_points_mean as the most impactful features. These insights align with clinical knowledge and support cost-effective diagnostic testing.
 
 ## Results
 
@@ -88,6 +95,67 @@ The scatter plot illustrates the relationship between radius1 and area1, color-c
 ![Radius vs. Area scatter plot](reports/images/radius_area_scatter.png)
 
 #### Data preprocessing
+
+The data preprocessing steps ensured the dataset was clean, balanced, and ready for modeling::
+1. **Renaming Columns**: For easier interpretation by adding suffixes (mean, se, worst).
+1. **Splitting Data**: Train-test split with stratification to balance the target classes while preserving class proportions.
+2. **Balancing Classes**: Using SMOTE (Synthetic Minority Oversampling Technique) to address class imbalance.
+
+```Python
+# Rename Columns
+new_columns = ['ID', 'Diagnosis']
+for i in range(30):
+    column_name = cancer.columns[i + 2]
+    suffix = 'mean' if column_name.endswith('1') else 'se' if column_name.endswith('2') else 'worst'
+    new_columns.append(column_name[:-1] + '_' + suffix)
+cancer.columns = new_columns
+
+# Prepare Features and Target
+X = cancer.drop(columns=['ID', 'Diagnosis'])  # Drop ID and target
+y = (cancer['Diagnosis'] == 'M').astype(int)  # Binary encoding: 1 for Malignant, 0 for Benign
+
+# Stratified Train-Test Split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, stratify=y, random_state=42)
+
+# Balance the Training Set Using SMOTE
+smote = SMOTE(random_state=42)
+X_train_balanced, y_train_balanced = smote.fit_resample(X_train, y_train)
+```
+
+**Class distribution before and after SMOTE**
+
+![Before and after SMOTE](reports/images/smote.png)
+
+#### GBM Model development and optimization
+
+To classify breast cancer diagnoses, we implemented a Gradient Boosting Machine (GBM) model using LightGBM. This model was chosen for its ability to handle imbalanced datasets effectively, provide feature importance insights, and deliver high accuracy.
+
+Hyperparameter Tuning
+We used GridSearchCV to optimize the model's hyperparameters. The following grid was explored:
+
+num_leaves: Controls the complexity of individual leaves in the decision tree.
+min_data_in_leaf: Sets the minimum data required in each leaf.
+max_depth: Limits the depth of trees to prevent overfitting.
+learning_rate: Balances model convergence speed and accuracy.
+n_estimators: Determines the number of boosting rounds.
+The best parameters, determined through cross-validation (5 folds), resulted in a ROC-AUC score of 0.996 during training.
+
+Model Training and Evaluation
+Training:
+
+The GBM model was trained on the balanced dataset (using SMOTE) with the best hyperparameters obtained from GridSearchCV.
+Predictions:
+
+Predictions were made on the test set, providing both class labels (y_pred) and probabilities (y_pred_proba).
+Performance Metrics:
+
+Accuracy: 97%
+ROC-AUC: 0.996
+High recall for malignant cases ensures minimal missed diagnoses.
+Feature Importance
+The GBM model identified the top 10 features contributing to predictions, which align with known clinical indicators of malignancy. 
+
+
 
 #### GBM/KNN model development and optimization
 Based on the results from applying KNN, adding any features beyond the first nine does not improve any of the provided metrics, including the accuracy score. Please find below these features:
