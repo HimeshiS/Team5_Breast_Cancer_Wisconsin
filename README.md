@@ -8,13 +8,12 @@ This project involves an in-depth analysis of the Breast Cancer Wisconsin datase
 ***
 ## Content
 1. [Dataset Description](#dataset-description)
-2. [Objective](#objective)
+2. [Objectives](#objectives)
 3. [Analytical Approach](#analytical-approach)
 3. [Results](#results)
-    3.1 [Exploratory data analysis](#exploratory-data-analysis)
-    3.2 [Data preprocessing](#data-preprocessing)
-4. [Team members](#team-members)
-5. [Project Folder Structure](#project-folder-structure)
+4. [Exploratory data analysis](#exploratory-data-analysis)
+5. [Data preprocessing](#data-preprocessing)
+6. [Team members](#team-members)
 
 ## Dataset Description
 
