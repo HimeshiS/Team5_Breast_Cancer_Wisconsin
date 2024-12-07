@@ -1,7 +1,7 @@
 # Breast Cancer Wisconsin Dataset Analysis
 
 This project involves an in-depth analysis of the Breast Cancer Wisconsin dataset to improve diagnostic testing for breast cancer. 
-* Our work includes extensive data preprocessing, exploratory analysis, and the implementation of machine learning models, such as K-Nearest Neighbors (KNN), to classify cancer diagnoses as benign or malignant. 
+* Our work includes extensive data preprocessing, exploratory analysis, and the implementation of machine learning models, such as Random Forest Classifier, K-Nearest Neighbors (KNN), to classify cancer diagnoses as benign or malignant. 
 * We conducted feature selection and optimization to identify the most important diagnostic features, streamlining the predictive model while maintaining high accuracy. 
 * This comprehensive approach demonstrates the potential of data-driven methods to refine and enhance cancer diagnostics.
 
@@ -56,7 +56,7 @@ The goal of this project is to:
 
 3. **Model Development:**
 
-    * KNN Exploration: Initial experiments with K-Nearest Neighbors (KNN) involved feature selection and iterative testing to optimize accuracy. However, the model struggled with performance and handling imbalanced data.
+    * KNN Exploration: Initial experiments with K-Nearest Neighbors (KNN) involved initial feature selection (using Random Forest Classifier to identify feature selection) and iterative testing to optimize accuracy. However, the model struggled with performance and handling imbalanced data.
     * GBM Implementation: Transitioned to a Gradient Boosting Machine (LightGBM) model, which outperformed KNN in both accuracy and robustness. GridSearchCV was used for hyperparameter tuning, and the final model achieved:
         * Accuracy: 97%
         * ROC-AUC Score: 0.996
@@ -207,7 +207,7 @@ Lightweight and scalable, the model is suitable for deployment in diverse health
 | **Alex Feht**   | [@ALEX8642](https://github.com/ALEX8642) | [Afeht8642@gmail.com](mailto:Afeht8642@gmail.com) | Data cleanup, GBM model development and optimization   | [Video](https://www.youtube.com/watch?v=YwemPdAVYpA) |
 | **Beth Bai**   | [@cwlh07](https://github.com/cwlh07) | [cwlh07@gmail.com](mailto:cwlh07@gmail.com)       | Exploratory data analysis, Visualization, GBM model optimization. | [Video](https://example.com/video2) |
 | **Himeshi Sam**| [@HimeshiS](https://github.com/HimeshiS)         | [himeshis575@gmail.com](mailto:himeshis575@gmail.com) | Exploratory data analysis, Preliminary KNN model, Documentation   | [Video](https://youtu.be/EGGIcI6NhBE) |
-| **Ivan Makushenko**   | [@malkus1306](https://github.com/malkus1306) | [ivan.makushenko@gmail.com](mailto:ivan.makushenko@gmail.com) | Feature selection, KNN model optimization, Documentation | [Video](https://example.com/video4) |
+| **Ivan Makushenko**   | [@malkus1306](https://github.com/malkus1306) | [ivan.makushenko@gmail.com](mailto:ivan.makushenko@gmail.com) | Feature selection, KNN model optimization, Documentation | [Video](https://youtu.be/lnQ-In6PrH8) |
 
 
 
